@@ -24,13 +24,17 @@ export function activate(context: vscode.ExtensionContext) {
 		quickPick.show();
 		quickPick.onDidChangeSelection(() => {
 			const selectedItem = quickPick.selectedItems;
-			if (selectedItem && selectedItem[0]) {
+			if (selectedItem && selectedItem[0] && selectedItem[0].description) {
 				vscode.window.showInputBox({
-					prompt: 'Select a new name for the ' + selectedItem[0].description + ' to be created -- ',
-					placeHolder: 'Give the new ' + selectedItem[0].description + ' a name...',
+					prompt: 'Enter the name you want for the new ' + selectedItem[0].description.toLowerCase() + ' above - ',
+					placeHolder: 'Give the new ' + selectedItem[0].description.toLowerCase() + ' a name...',
 				}).then((name) => {
-					const terminal = getTerminal();
-					terminal.sendText(getTerminalCommand(selectedItem[0].description, name, selectedItem[0].detail));
+					if (name) {
+						const terminal = getTerminal();
+						terminal.sendText(getTerminalCommand(selectedItem[0].description, name, selectedItem[0].detail));
+					} else {
+						vscode.window.showErrorMessage('No name entered.');
+					}
 				});
 			}
 		});
