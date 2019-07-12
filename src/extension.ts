@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { QuickPickItem } from 'vscode';
 import { addListener } from 'cluster';
 import { SpawnSyncOptionsWithStringEncoding } from 'child_process';
 
@@ -16,25 +17,34 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('extension.caress-generator', () => {
-		let selectedType: GeneratorType;
 		// Display a message box to the user
 		// const quickpicks = [new vscode.QuickInputButtons()]
 		const quickPick = vscode.window.createQuickPick();
 		quickPick.items = getQuickPicks();
 		quickPick.show();
-		quickPick.onDidChangeSelection((item) => {
-			selectedType = JSON.parse(JSON.stringify(item));
-			vscode.window.showInformationMessage(JSON.stringify(item));
-			vscode.window.showInputBox({ placeHolder: 'Give the new ' + selectedType.description.toLowerCase() + ' a name...' }).then((x) => {
-				console.log(x);
-			});
+		quickPick.onDidChangeSelection(() => {
+			const selectedItem = quickPick.selectedItems;
+			if (selectedItem && selectedItem[0]) {
+				vscode.window.showInputBox({
+					prompt: 'Select a new name for the ' + selectedItem[0].description + ' to be created -- ',
+					placeHolder: 'Give the new ' + selectedItem[0].description + ' a name...',
+				}).then((x) => {
+					//Hier genereren
+				});
+			}
 		});
 
 
 
+		// placeHolder:
 	});
 
 	context.subscriptions.push(disposable);
+
+	function getConsole() {
+
+	}
+
 }
 
 function getQuickPicks(): Array<GeneratorType> {
@@ -75,16 +85,10 @@ function getQuickPicks(): Array<GeneratorType> {
 	return list;
 }
 
-class GeneratorType implements vscode.QuickPickItem {
-	label: string;
-	description: string;
-	detail: string;
-	constructor(label: string, description: string, detail: string) {
-		this.label = label;
-		this.description = description;
-		this.detail = detail;
-	}
-
+class GeneratorType {
+	label: string = '';
+	description: string = '';
+	detail: string = '';
 }
 
 // this method is called when your extension is deactivated
