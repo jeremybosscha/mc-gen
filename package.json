@@ -17,7 +17,22 @@
 		"commands": [{
 			"command": "extension.caress-generator",
 			"title": "MijnCaress Generator"
-		}]
+		}],
+		"viewsContainers": {
+			"activitybar": [{
+				"id": "caress-generator",
+				"title": "MijnCaress Generator",
+				"icon": "resources/care.svg",
+				"command": "extension.caress-generator"
+			}]
+		},
+		"views": {
+			"caress-generator": [{
+				"id": "extension.caress-generator",
+				"name": "extension.caress-generator",
+				"command": "extension.caress-generator"
+			}]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

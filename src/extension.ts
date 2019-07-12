@@ -28,21 +28,34 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.window.showInputBox({
 					prompt: 'Select a new name for the ' + selectedItem[0].description + ' to be created -- ',
 					placeHolder: 'Give the new ' + selectedItem[0].description + ' a name...',
-				}).then((x) => {
-					//Hier genereren
+				}).then((name) => {
+					const terminal = getTerminal();
+					terminal.sendText(getTerminalCommand(selectedItem[0].description, name, selectedItem[0].detail));
 				});
 			}
 		});
-
-
-
-		// placeHolder:
 	});
 
 	context.subscriptions.push(disposable);
 
-	function getConsole() {
+	function getTerminal() {
+		let terminal = vscode.window.activeTerminal;
+		if (!terminal) {
+			terminal = vscode.window.createTerminal();
+		}
+		terminal.show();
+		return terminal;
+	}
 
+	function getTerminalCommand(type?: string, name?: string, path?: string): string {
+		let command = '';
+		if (type && name && path) {
+			command = 'ionic generate ' + type.toLowerCase();
+			command += ' ';
+			command += path;
+			command += name;
+		}
+		return command;
 	}
 
 }
@@ -51,28 +64,28 @@ function getQuickPicks(): Array<GeneratorType> {
 	let list = [];
 	const pageItem: GeneratorType = {
 		'description': 'Page',
-		'detail': 'src/pages/',
+		'detail': 'pages/',
 		'label': 'Generate a page'
 	};
 	const serviceItem: GeneratorType = {
 		'description': 'Service',
-		'detail': 'src/services/',
+		'detail': 'services/',
 		'label': 'Generate a service'
 	};
 	const moduleItem: GeneratorType = {
 		'description': 'Module',
-		'detail': 'src/modules/',
+		'detail': 'modules/',
 		'label': 'Generate a module'
 	};
 	const sharedModuleItem: GeneratorType = {
 		'description': 'Shared module',
-		'detail': 'src/sharedModules',
+		'detail': 'sharedModules/',
 		'label': 'Generate a shared module'
 	};
 
 	const entityItem: GeneratorType = {
 		'description': 'Entity',
-		'detail': 'src/entities',
+		'detail': 'entities/',
 		'label': 'Generate an entity'
 	};
 
