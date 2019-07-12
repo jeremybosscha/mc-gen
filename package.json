@@ -10,16 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.caress-generator"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-		]
+		"commands": [{
+			"command": "extension.caress-generator",
+			"title": "MijnCaress Generator"
+		}]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
