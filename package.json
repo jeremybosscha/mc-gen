@@ -1,4 +1,5 @@
 {
+	"publisher": "JeremyBosscha",
 	"name": "caress-generator",
 	"displayName": "caress-generator",
 	"description": "Generator for ionic modules/views/services etc",
