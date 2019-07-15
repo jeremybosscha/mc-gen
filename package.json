@@ -3,7 +3,7 @@
 	"name": "caress-generator",
 	"displayName": "caress-generator",
 	"description": "Generator for ionic modules/views/services etc",
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"engines": {
 		"vscode": "^1.36.0"
 	},
@@ -15,12 +15,10 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "extension.caress-generator",
-				"title": "MijnCaress Generator"
-			}
-		]
+		"commands": [{
+			"command": "extension.caress-generator",
+			"title": "MijnCaress Generator"
+		}]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
