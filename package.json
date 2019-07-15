@@ -2,8 +2,13 @@
 	"publisher": "JeremyBosscha",
 	"name": "caress-generator",
 	"displayName": "caress-generator",
+	"icon": "./resources/CRS.png",
 	"description": "Generator for ionic modules/views/services etc",
 	"version": "1.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jeremybosscha/mijncaress-generator"
+	},
 	"engines": {
 		"vscode": "^1.36.0"
 	},
