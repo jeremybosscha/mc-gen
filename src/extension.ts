@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { QuickPickItem } from 'vscode';
 import { addListener } from 'cluster';
 import { SpawnSyncOptionsWithStringEncoding } from 'child_process';
+import Messages from './messages';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -29,9 +30,10 @@ export function activate(context: vscode.ExtensionContext) {
 					prompt: 'Enter the name you want for the new ' + selectedItem[0].description.toLowerCase() + ' above - ',
 					placeHolder: 'Give the new ' + selectedItem[0].description.toLowerCase() + ' a name...',
 				}).then((name) => {
-					if (name) {
+					if (name && selectedItem[0].description) {
 						const terminal = getTerminal();
 						terminal.sendText(getTerminalCommand(selectedItem[0].description, name, selectedItem[0].detail));
+						vscode.window.showInformationMessage(Messages.getMessage(selectedItem[0].description));
 					} else {
 						vscode.window.showErrorMessage('No name entered.');
 					}
