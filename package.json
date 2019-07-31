@@ -20,10 +20,12 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [{
-			"command": "extension.caress-generator",
-			"title": "MijnCaress Generator"
-		}]
+		"commands": [
+			{
+				"command": "extension.caress-generator",
+				"title": "MijnCaress Generator"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
